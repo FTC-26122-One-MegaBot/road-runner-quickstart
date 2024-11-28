@@ -40,12 +40,13 @@ public class MegaTeleOp extends LinearOpMode {
     String CLIP_HIGH;
     boolean clawOpen = false;
 
+    private Robot robot;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
+        robot = new Robot(hardwareMap);
 
         claw = hardwareMap.get(Servo.class, "claw");
         intake = hardwareMap.get(CRServo.class, "intake");
@@ -68,7 +69,7 @@ public class MegaTeleOp extends LinearOpMode {
             // Put run blocks here
 
             while (opModeIsActive()) {
-                drive.setDrivePowers(new PoseVelocity2d(
+                robot.setDrivePowers(new PoseVelocity2d(
                         new Vector2d(
                                 -gamepad1.left_stick_y,
                                 -gamepad1.left_stick_x
@@ -76,7 +77,7 @@ public class MegaTeleOp extends LinearOpMode {
                         -gamepad1.right_stick_x
                 ));
 
-                drive.updatePoseEstimate();
+                robot.updatePoseEstimate();
 
                 GAMEPAD_INPUT_STATE();
                 GAMEPAD_INPUT_TOGGLE();
@@ -85,7 +86,7 @@ public class MegaTeleOp extends LinearOpMode {
                 STATE_MACHINE();
                 Wrist();
                 Arm();
-                TELEMETRY(drive);
+
             }
         }
     }
