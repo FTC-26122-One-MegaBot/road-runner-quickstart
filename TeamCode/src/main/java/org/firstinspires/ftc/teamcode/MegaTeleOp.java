@@ -96,9 +96,9 @@ public class MegaTeleOp extends LinearOpMode {
      */
     private void GAMEPAD_INPUT_TOGGLE() {
         if (gamepad1.right_bumper) {
-            claw.setPosition(0.17);
+            claw.setPosition(0.25);
         } else {
-            claw.setPosition(0.05);
+            claw.setPosition(0.15);
         }
     }
 
