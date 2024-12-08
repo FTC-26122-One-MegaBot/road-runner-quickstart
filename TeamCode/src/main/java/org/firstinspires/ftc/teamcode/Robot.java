@@ -43,14 +43,10 @@ public class Robot {
 
     public void doStuff() {
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
-                .waitSeconds(3);
+                        .strafeTo(new Vector2d(0,20))
+                        .strafeTo(new Vector2d(20, 20))
+                        .strafeTo(new Vector2d(20, 0))
+                        .strafeTo(new Vector2d(0,0));
 
         Actions.runBlocking(tab1.build());
     }
