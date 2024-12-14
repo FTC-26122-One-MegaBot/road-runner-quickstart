@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.google.blocks.ftcrobotcontroller.util.Identifier.TELEMETRY;
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
@@ -15,6 +17,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.action.BlaBlaAction;
 
 @TeleOp(name = "Mega TeleOp")
@@ -64,7 +67,9 @@ public class MegaTeleOp extends LinearOpMode {
         lastHook = false;
         lastGrab = false;
 
-        waitForStart();
+
+
+            waitForStart();
         if (opModeIsActive()) {
             // Put run blocks here
 
@@ -87,6 +92,7 @@ public class MegaTeleOp extends LinearOpMode {
                 Wrist();
                 Arm();
 
+                TELEMETRY(robot.drive);
             }
         }
     }

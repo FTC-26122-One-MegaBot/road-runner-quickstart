@@ -20,7 +20,7 @@ public class Robot {
     private CRServo intake;
     private DcMotor wrist;
     private DcMotor arm;
-    private MecanumDrive drive;
+    public MecanumDrive drive;
 
     private Pose2d initialPose;
 
@@ -41,14 +41,32 @@ public class Robot {
         drive.updatePoseEstimate();
     }
 
-    public void doStuff() {
+    public void doStuffR() {
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                        .strafeTo(new Vector2d(0,20))
-                        .strafeTo(new Vector2d(20, 20))
-                        .strafeTo(new Vector2d(20, 0))
-                        .strafeTo(new Vector2d(0,0));
+                .strafeTo(new Vector2d(0,-20));
+//                        .strafeTo(new Vector2d(20, 20))
+//                        .strafeTo(new Vector2d(20, 0))
+//                        .strafeTo(new Vector2d(0,0));
 
         Actions.runBlocking(tab1.build());
     }
 
+    public void doStuffL() {
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+                        .strafeTo(new Vector2d(0,20));
+//                        .strafeTo(new Vector2d(20, 20))
+//                        .strafeTo(new Vector2d(20, 0))
+//                        .strafeTo(new Vector2d(0,0));
+
+        Actions.runBlocking(tab1.build());
+    }
+    public void doStuffTest() {
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(27.5,3));
+//                .strafeTo(new Vector2d(88.45,3));
+//                        .strafeTo(new Vector2d(20, 0))
+//                        .strafeTo(new Vector2d(0,0));
+
+        Actions.runBlocking(tab1.build());
+    }
 }
