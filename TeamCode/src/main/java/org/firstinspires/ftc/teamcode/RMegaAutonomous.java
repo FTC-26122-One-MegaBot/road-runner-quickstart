@@ -22,7 +22,7 @@ public class RMegaAutonomous extends LinearOpMode{
             robot.doStuffR();
 
         }
-
+        Thread.sleep(1 * 60 * 1000);
     }
 
 }

@@ -5,8 +5,8 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "Test Mega Autonomous")
-public class TestMegaAutonomous extends LinearOpMode{
+@Autonomous(name = "Highbar Test Mega Autonomous")
+public class HighbarTestMegaAutonomous extends LinearOpMode{
 
     private Robot robot;
 
@@ -19,7 +19,7 @@ public class TestMegaAutonomous extends LinearOpMode{
         waitForStart();
         if(opModeIsActive()) {
 //          run blocks hier
-            robot.doStuffTest();
+            robot.doStuffHighbarTest();
 
         }
     }

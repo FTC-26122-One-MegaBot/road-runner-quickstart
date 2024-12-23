@@ -102,9 +102,9 @@ public class MegaTeleOp extends LinearOpMode {
      */
     private void GAMEPAD_INPUT_TOGGLE() {
         if (gamepad1.right_bumper) {
-            claw.setPosition(0.25);
+            claw.setPosition(0.5);
         } else {
-            claw.setPosition(0.15);
+            claw.setPosition(0.2);
         }
     }
 
@@ -172,7 +172,7 @@ public class MegaTeleOp extends LinearOpMode {
     private void GAMEPAD_INPUT_MANUAL() {
         if (gamepad1.dpad_up) {
             currentState = MANUAL;
-            targetArm += 25;
+            targetArm = targetArm <= 2800 ? targetArm + 25 : targetArm;
         } else if (gamepad1.dpad_down) {
             currentState = MANUAL;
             targetArm = targetArm >= 0 ? targetArm -25 : 0;
