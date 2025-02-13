@@ -12,8 +12,8 @@ public class HighbarTestMegaAutonomous extends LinearOpMode{
 
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new Robot(hardwareMap);
-        telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
+        robot = new Robot(hardwareMap, telemetry);
+        //telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
 
         waitForStart();
