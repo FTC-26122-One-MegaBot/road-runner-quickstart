@@ -88,15 +88,35 @@ public class Robot {
                 new SleepAction(1.0),
                 new Intake(),
                 new SleepAction(1.0),
-                new Grabbel_aan(),
+                new In_Intake(),
                 geel_blokje_2.build(),
                 new SleepAction(1.0),
-                new Grabbel_uit())
+                new Uit_Intake())
         );
 
 
 
 
+    }
+
+    public void doStuffHighbarTest2() {
+        TrajectoryActionBuilder strafe_highbar_observe = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(-20, -70));
+        TrajectoryActionBuilder highbar = drive.actionBuilder(initialPose)
+                .strafeTo(new Vector2d(20,0 ));
+
+
+        Actions.runBlocking(new SequentialAction(
+                new Highbar(),
+                new SleepAction(2.0),
+                highbar.build(),
+                new Uit_Intake(),
+                new SleepAction(0.60),
+                new INIT(),
+                strafe_highbar_observe.build()
+
+
+                ));
     }
 
     public class Intake implements Action {
@@ -115,7 +135,7 @@ public class Robot {
         }
     }
 
-    public class Grabbel_aan implements Action {
+    public class In_Intake implements Action {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -123,8 +143,16 @@ public class Robot {
             return false;
         }
     }
+    public class Intake_Off implements Action {
 
-    public class Grabbel_uit implements Action {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            intake.setPower(0);
+            return false;
+        }
+    }
+
+    public class Uit_Intake implements Action {
 
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -136,20 +164,22 @@ public class Robot {
         TrajectoryActionBuilder highbar = drive.actionBuilder(initialPose)
                 .strafeTo(new Vector2d(20,0 ));
 
-        TrajectoryActionBuilder highbar_Observzone = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder highbar_Observzone1 = drive.actionBuilder(initialPose)
                 //.splineTo(new Vector2d(-25, 0), Math.toRadians(0));
                 .lineToX(-6)
                 .turnTo(Math.toRadians(-45))
-                .lineToY(-50)
-                .lineToY(-40)
-                .turnTo(Math.toRadians(-90));
+                .lineToY(-51);
+        TrajectoryActionBuilder highbar_Observzone2 = drive.actionBuilder(initialPose)
+                .lineToX(-12)
+                .turnTo(Math.toRadians(-44));
         TrajectoryActionBuilder in_intake = drive.actionBuilder(initialPose)
-                .lineToX(7);
-        TrajectoryActionBuilder observe_highbar = drive.actionBuilder(initialPose)
+                .lineToX(4);
+        TrajectoryActionBuilder observe_highbar1 = drive.actionBuilder(initialPose)
                 .lineToX(7)
-                .turnTo(Math.toRadians(-45))
-                .lineToY(-10)
-                .turnTo(Math.toRadians(-45));
+                .turnTo(Math.toRadians(-44));
+        TrajectoryActionBuilder observe_highbar2 = drive.actionBuilder(initialPose)
+                .lineToX(40)
+                .turnTo(Math.toRadians(-44));
 
 
 
@@ -167,23 +197,36 @@ public class Robot {
 
 
         Actions.runBlocking(new SequentialAction(
-
+                new Uit_Intake(),
+                new SleepAction(0.60),
                 new INIT(),
+                highbar_Observzone1.build()
+                ));
+        telemetry.addData("heading bij error",Math.toRadians(drive.pose.heading.toDouble()));
+        telemetry.addData("x bij error", drive.pose.position.x);
+        telemetry.addData("y bij error", drive.pose.position.y);
+        telemetry.update();
+
+        Actions.runBlocking(new SequentialAction(
+                highbar_Observzone2.build(),
+                new Intake_Off(),
                 new SleepAction(1),
-                highbar_Observzone.build(),
-                new Grabbel_uit(),
-                new SleepAction(3),
                 new INTAKE(),
                 new SleepAction(1),
                 in_intake.build(),
                 new SleepAction(0.2),
-                new Grabbel_aan(),
+                new In_Intake(),
                 new SleepAction(1),
                 new INIT(),
-                observe_highbar.build(),
+                observe_highbar1.build(),
+                new Intake_Off(),
+                observe_highbar2.build(),
                 new Highbar(),
                 new SleepAction(2.0),
-                highbar.build()
+                highbar.build(),
+                new Uit_Intake(),
+                new INIT()
+
 
 //                new SleepAction(1)
         ));

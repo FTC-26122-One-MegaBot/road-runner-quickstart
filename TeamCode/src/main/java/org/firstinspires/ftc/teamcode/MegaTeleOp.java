@@ -34,8 +34,7 @@ public class MegaTeleOp extends LinearOpMode {
     String INIT;
     boolean lastHook;
     String MANUAL;
-    String WALL_GRAB;
-    String WALL_UNHOOK;
+    String HOVER;
     String HOVER_HIGH;
     String CLIP_HIGH;
     boolean clawOpen = false;
@@ -68,12 +67,11 @@ public class MegaTeleOp extends LinearOpMode {
         arm = hardwareMap.get(DcMotor.class, "arm");
         MANUAL = "MANUAL";
         INTAKE = "INTAKE";
-        WALL_GRAB = "WALL_GRAB";
-        WALL_UNHOOK = "WALL_UNHOOK";
         HOVER_HIGH = "HOVER_HIGH";
         CLIP_HIGH = "CLIP_HIGH";
         LOW_BASKET = "LOW_BASKET";
         INIT = "INIT";
+        HOVER = "HOVER";
         currentState = INIT;
         lastHook = false;
         lastGrab = false;
@@ -144,12 +142,8 @@ public class MegaTeleOp extends LinearOpMode {
     private void GAMEPAD_INPUT_STATE() {
         if (gamepad1.a) {
             currentState = INTAKE;
-        } else if (gamepad1.b && !lastGrab) {
-            if (currentState.equals(WALL_GRAB)) {
-                currentState = WALL_UNHOOK;
-            } else {
-                currentState = WALL_GRAB;
-            }
+        } else if (gamepad1.b){
+            currentState = HOVER;
         } else if (gamepad1.y) {
             currentState = CLIP_HIGH;
         } else if (gamepad1.x) {
@@ -229,12 +223,9 @@ public class MegaTeleOp extends LinearOpMode {
         } else if (currentState.equals(INTAKE)) {
             targetArm = 325 ;
             targetWrist = -235;
-        } else if (currentState.equals(WALL_GRAB)) {
-            targetArm = 1150;
-            targetWrist = 0;
-        } else if (currentState.equals(WALL_UNHOOK)) {
-            targetArm = 1410;
-            targetWrist = 0;
+        } else if (currentState.equals(HOVER)) {
+            targetArm = 500;
+            targetWrist = -215;
         } else if (currentState.equals(CLIP_HIGH)) {
             targetArm = 2025;
             targetWrist = -245;
